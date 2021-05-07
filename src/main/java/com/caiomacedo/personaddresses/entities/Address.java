@@ -1,5 +1,6 @@
 package com.caiomacedo.personaddresses.entities;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
@@ -11,12 +12,23 @@ import javax.persistence.Table;
 @Table(name = "t_address")
 public class Address extends BaseEntity {
 
+    @JsonAlias("logradouro")
     private String street;
     private String houseNumber;
+
+    @JsonAlias("complemento")
     private String complement;
+
+    @JsonAlias("bairro")
     private String district;
+
+    @JsonAlias("localidade")
     private String city;
+
+    @JsonAlias("uf")
     private String state;
+
+    @JsonAlias("cep")
     private String zipcode;
 
     @JsonIgnoreProperties("addresses")

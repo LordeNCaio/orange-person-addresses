@@ -1,26 +1,36 @@
 package com.caiomacedo.personaddresses.controllers;
 
+import com.caiomacedo.personaddresses.dto.CepAddressDTO;
 import com.caiomacedo.personaddresses.entities.Address;
-import com.caiomacedo.personaddresses.services.PersonAddressService;
+import com.caiomacedo.personaddresses.services.AddressService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
 
-    private final PersonAddressService personAddressService;
+    private final AddressService addressService;
 
-    private AddressController(PersonAddressService personAddressService){
-        this.personAddressService = personAddressService;
+    private AddressController(AddressService addressService) {
+        this.addressService = addressService;
     }
 
     @PostMapping("/{personId}")
-    public void createAddress(@PathVariable Long personId, @RequestBody Address address){
-        personAddressService.createAddress(personId, address);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createAddress(@PathVariable Long personId, @RequestBody Address address) {
+        addressService.createAddress(personId, address);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createAddressUsingZipCode(@RequestParam("personId") Long personId, @RequestBody CepAddressDTO dto){
+        addressService.createAddressUsingZipCode(personId, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteAddress(@PathVariable Long id){
-        personAddressService.deleteAddress(id);
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAddress(@PathVariable Long id) {
+        addressService.deleteAddress(id);
     }
 }

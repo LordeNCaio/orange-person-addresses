@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "t_person")
 public class Person extends BaseEntity {
 
-
     private String name;
 
     @Column(unique = true)
