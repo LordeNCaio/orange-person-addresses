@@ -3,6 +3,7 @@ package com.caiomacedo.personaddresses.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,14 +11,21 @@ import java.util.List;
 @Table(name = "t_person")
 public class Person extends BaseEntity {
 
+    @NotBlank(message = "Name cannot be null or empty.")
     private String name;
 
+    @NotBlank(message = "Email cannot be null or empty.")
+    @Email(message = "Email must be email@email.com")
     @Column(unique = true)
     private String email;
 
+    @NotBlank(message = "CPF cannot be null or empty")
+    @Pattern(regexp = "(([0-9]{3}[.]){2}[0-9]{3}[-][0-9]{2})", message = "CPF must be 000.000.000.-00")
     @Column(unique = true)
     private String cpf;
 
+    @NotNull(message = "Born date cannot be null")
+    @Past(message = "Born date must be in past")
     private LocalDate birthDate;
 
     @JsonIgnoreProperties("person")

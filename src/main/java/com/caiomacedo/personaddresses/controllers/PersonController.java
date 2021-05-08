@@ -5,6 +5,7 @@ import com.caiomacedo.personaddresses.services.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPerson(@RequestBody Person p) {
+    public void createPerson(@Valid @RequestBody Person p) {
         personService.createPerson(p);
     }
 

@@ -6,6 +6,8 @@ import com.caiomacedo.personaddresses.services.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/addresses")
 public class AddressController {
@@ -16,16 +18,16 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @PostMapping("/{personId}")
+    @PostMapping("/complete/{personId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAddress(@PathVariable Long personId, @RequestBody Address address) {
+    public void createAddress(@PathVariable Long personId, @Valid @RequestBody Address address) {
         addressService.createAddress(personId, address);
     }
 
-    @PostMapping
+    @PostMapping("/zipcode")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAddressUsingZipCode(@RequestParam("personId") Long personId, @RequestBody CepAddressDTO dto){
-        addressService.createAddressUsingZipCode(personId, dto);
+    public void createAddressUsingZipCode(@Valid @RequestBody CepAddressDTO dto){
+        addressService.createAddressUsingZipCode(dto);
     }
 
     @DeleteMapping("/{id}")
@@ -33,4 +35,5 @@ public class AddressController {
     public void deleteAddress(@PathVariable Long id) {
         addressService.deleteAddress(id);
     }
+
 }

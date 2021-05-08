@@ -7,27 +7,36 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "t_address")
 public class Address extends BaseEntity {
 
+    @NotBlank(message = "Street cannot be null or empty")
     @JsonAlias("logradouro")
     private String street;
+
     private String houseNumber;
 
     @JsonAlias("complemento")
     private String complement;
 
+    @NotBlank(message = "District cannot be null or empty")
     @JsonAlias("bairro")
     private String district;
 
+    @NotBlank(message = "City cannot be null or empty")
     @JsonAlias("localidade")
     private String city;
 
+    @NotBlank(message = "State cannot be null or empty")
     @JsonAlias("uf")
     private String state;
 
+    @NotBlank(message = "Zip Code cannot be null or empty")
+    @Pattern(regexp = "(^[0-9]{8}$)", message = "Zip Code must have eight digits")
     @JsonAlias("cep")
     private String zipcode;
 

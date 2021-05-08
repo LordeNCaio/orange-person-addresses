@@ -28,14 +28,12 @@ public class AddressService {
         addressRepository.save(address);
     }
 
-    public void createAddressUsingZipCode(Long personId, CepAddressDTO dto) {
-        Person p = personService.findById(personId);
+    public void createAddressUsingZipCode(CepAddressDTO dto) {
+        Person p = personService.findById(dto.getPersonId());
         Address a = viaCepService.getZipCodeDetails(dto.getZipcode());
-        a.setHouseNumber(dto.getHouseNumber());
-        a.setComplement(
-                !dto.getComplement().isBlank() ? dto.getComplement() : a.getComplement()
-        );
         a.setPerson(p);
+        a.setComplement(!dto.getComplement().isBlank() ? dto.getComplement() : a.getComplement());
+        a.setHouseNumber(dto.getHouseNumber());
         p.getAddresses().add(a);
         addressRepository.save(a);
     }
