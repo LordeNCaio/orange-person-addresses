@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/addresses")
@@ -18,6 +19,11 @@ public class AddressController {
         this.addressService = addressService;
     }
 
+    @GetMapping("/{personId}")
+    public List<Address> getPersonAddresses(@PathVariable Long personId){
+        return addressService.getAddressesFromPerson(personId);
+    }
+
     @PostMapping("/complete/{personId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void createAddress(@PathVariable Long personId, @Valid @RequestBody Address address) {
@@ -26,7 +32,8 @@ public class AddressController {
 
     @PostMapping("/zipcode")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAddressUsingZipCode(@Valid @RequestBody CepAddressDTO dto){
+    public void createAddressUsingZipCode(
+            @Valid @RequestBody CepAddressDTO dto){
         addressService.createAddressUsingZipCode(dto);
     }
 

@@ -1,6 +1,7 @@
 package com.caiomacedo.personaddresses.entities;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
@@ -40,6 +41,7 @@ public class Address extends BaseEntity {
     @JsonAlias("cep")
     private String zipcode;
 
+    @JsonIgnore
     @JsonIgnoreProperties("addresses")
     @ManyToOne
     @JoinColumn(name = "person_id")

@@ -41,5 +41,4 @@ public class PersonController {
     public void deletePersonById(@PathVariable Long id){
         personService.deletePerson(id);
     }
-
 }

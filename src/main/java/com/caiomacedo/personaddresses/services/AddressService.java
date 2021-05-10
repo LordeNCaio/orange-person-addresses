@@ -8,6 +8,8 @@ import com.caiomacedo.personaddresses.utils.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AddressService {
 
@@ -45,5 +47,10 @@ public class AddressService {
     @Autowired
     private void getPersonService(PersonService personService) {
         this.personService = personService;
+    }
+
+    public List<Address> getAddressesFromPerson(Long personId) {
+        Person p = personService.findById(personId);
+        return p.getAddresses();
     }
 }

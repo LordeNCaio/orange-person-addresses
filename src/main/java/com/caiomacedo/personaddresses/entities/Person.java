@@ -24,8 +24,8 @@ public class Person extends BaseEntity {
     @Column(unique = true)
     private String cpf;
 
-    @NotNull(message = "Born date cannot be null")
-    @Past(message = "Born date must be in past")
+    @NotNull(message = "Birth date cannot be null")
+    @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
     @JsonIgnoreProperties("person")
@@ -36,11 +36,11 @@ public class Person extends BaseEntity {
 
     }
 
-    public Person(String name, String email, String cpf, LocalDate bornDay) {
+    public Person(String name, String email, String cpf, LocalDate birthDate) {
         this.name = name;
         this.email = email;
         this.cpf = cpf;
-        this.birthDate = bornDay;
+        this.birthDate = birthDate;
     }
 
     public String getName() {
