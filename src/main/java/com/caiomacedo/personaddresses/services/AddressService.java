@@ -36,6 +36,7 @@ public class AddressService {
         a.setPerson(p);
         a.setComplement(!dto.getComplement().isBlank() ? dto.getComplement() : a.getComplement());
         a.setHouseNumber(dto.getHouseNumber());
+        a.setZipcode(a.getZipcode().replace("-", ""));
         p.getAddresses().add(a);
         addressRepository.save(a);
     }
